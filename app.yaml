@@ -1,4 +1,4 @@
-application: vk2rss-141715
+# application: vk2rss-141715
 version: 1
 runtime: python27
 threadsafe: true
