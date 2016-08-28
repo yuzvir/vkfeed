@@ -17,7 +17,8 @@ class TestHTMLPageParser(unittest.TestCase):
     def test(self):
         '''Testing HTMLPageParser.'''
 
-        page_dir = 'html_parser'
+        page_dir = os.path.dirname(os.path.realpath(__file__))
+        page_dir = os.path.join(page_dir, 'html_parser')
 
         for page_name in os.listdir(page_dir):
             page_path = os.path.join(page_dir, page_name)

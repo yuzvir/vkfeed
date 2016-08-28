@@ -6,6 +6,7 @@
 from __future__ import unicode_literals
 
 import unittest
+import os
 
 from vkfeed.tools.wall_parser import WallPageParser, ParseError
 
@@ -16,20 +17,21 @@ class TestWallParser(unittest.TestCase):
 
     def setUp(self):
         self.__parser = WallPageParser(ignore_errors = False)
+        self.cur_dir = os.path.dirname(os.path.realpath(__file__))
 
 
     def test_invalid_page(self):
         '''Testing parsing of invalid page.'''
 
         self.assertRaises(ParseError, lambda:
-            self.__parser.parse(open('wall_parser/invalid_page.html').read().decode('cp1251')))
+            self.__parser.parse(open(os.path.join(self.cur_dir, 'wall_parser/invalid_page.html')).read().decode('cp1251')))
 
 
     def test_group_wall(self):
         '''Testing parsing of group wall'''
 
         self.__test_parsing(
-            open('wall_parser/group_profile_page.html').read().decode('cp1251'), {
+            open(os.path.join(self.cur_dir, 'wall_parser/group_profile_page.html')).read().decode('cp1251'), {
                 'user_name':  'Хабрахабр',
                 'user_photo': 'http://cs11159.vk.com/g20629724/a_ba3bb3dc.jpg',
                 'posts':      10,
@@ -41,7 +43,7 @@ class TestWallParser(unittest.TestCase):
         '''Testing parsing of empty wall'''
 
         self.__test_parsing(
-            open('wall_parser/user_profile_page_with_empty_wall.html').read().decode('cp1251'), {
+            open(os.path.join(self.cur_dir, 'wall_parser/user_profile_page_with_empty_wall.html')).read().decode('cp1251'), {
                 'user_name':  'Григорий Бакунов',
                 'user_photo': 'http://cs4383.vk.com/u78983895/a_912f563f.jpg',
                 'posts':      0,
@@ -53,7 +55,7 @@ class TestWallParser(unittest.TestCase):
         '''Testing parsing of user wall'''
 
         self.__test_parsing(
-            open('wall_parser/user_profile_page.html').read().decode('cp1251'), {
+            open(os.path.join(self.cur_dir, 'wall_parser/user_profile_page.html')).read().decode('cp1251'), {
                 'user_name':  'Павел Дуров',
                 'user_photo': 'http://vk.com/u00001/a_a964f9a2.jpg',
                 'posts':      10,
